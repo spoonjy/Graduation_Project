@@ -8,7 +8,8 @@ def post_add_new_pet():
                     "status": "available"}
 
     response = requests.post(url='https://petstore.swagger.io/v2/pet', json=new_pet_data)
-    return response
+    assert response.status_code == 200
+    f'Error! New pet doesnt add to store!, Actual status code {response.status_code} with error {response.json()}'
 
 
 def get_add_new_pet():
@@ -47,7 +48,8 @@ def post_new_user():
         "userStatus": 3
     }
     response = requests.post(url='https://petstore.swagger.io/v2/user', json=new_user_data)
-    return response
+    assert response.status_code == 200
+    f'Error! New user doesnt add to store!, Actual status code {response.status_code} with error {response.json()}'
 
 
 def get_user():
@@ -69,7 +71,8 @@ def put_user():
         "userStatus": 3
     }
     response = requests.put(url='https://petstore.swagger.io/v2/user/Rick', json=put_data)
-    return response
+    assert response.status_code == 200
+    f'Error! User not found!, Actual status code {response.status_code} with error {response.json()}'
 
 
 def verify_put_user():
