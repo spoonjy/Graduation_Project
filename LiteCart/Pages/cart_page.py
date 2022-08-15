@@ -14,38 +14,45 @@ class CartPage(BasePage):
     def verify_purple_duck_item(self):
         assert self.is_element_present(CartPageLoc.item_purple_duck), "Element is absent!"
 
-    def verify_price_blue_duck(self):
+    def verify_price_blue_duck(self, price: str):
         price_blue_duck = self.chrome.find_element(*CartPageLoc.price_blue_duck).text
-        assert price_blue_duck == '14.52 €', 'Price is not correct'
+        assert price_blue_duck == price
+        f'Error: Incorrect price!, expected - {price}, actual - {price_blue_duck}'
 
-    def verify_price_yellow_duck(self):
+    def verify_price_yellow_duck(self, price: str):
         price_yellow_duck = self.chrome.find_element(*CartPageLoc.price_yellow_duck).text
-        assert price_yellow_duck == '13.07 €', 'Price is not correct'
+        assert price_yellow_duck == price
+        f'Error: Incorrect price!, expected - {price}, actual - {price_yellow_duck}'
 
-    def verify_price_purple_duck(self):
+    def verify_price_purple_duck(self, price: str):
         price_purple_duck = self.chrome.find_element(*CartPageLoc.price_purple_duck).text
-        assert price_purple_duck == '0.00 €', 'Price is not correct'
+        assert price_purple_duck == price
+        f'Error: Incorrect price!, expected - {price}, actual - {price_purple_duck}'
 
-    def verify_total_price(self):
+    def verify_total_price(self, t_price: str):
         total_price = self.chrome.find_element(*CartPageLoc.total_price).text
-        assert total_price == '27.59 €', 'Price is not correct'
+        assert total_price == t_price
+        f'Error: Incorrect price!, expected - {t_price}, actual - {total_price}'
 
     def order(self):
         order = self.chrome.find_element(*CartPageLoc.order)
         order.click()
 
-    def verify_red_ducks_quantity(self):
+    def verify_red_ducks_quantity(self, quantity: str):
         red_ducks_quantity = self.chrome.find_element(*CartPageLoc.red_ducks_quantity).text
-        assert red_ducks_quantity == '3', 'Wrong number of ducks'
+        assert red_ducks_quantity == quantity
+        f'Error: Incorrect Quantity!, expected - {quantity}, actual - {red_ducks_quantity}'
 
-    def verify_total_price_for_3_ducks(self):
+    def verify_total_price_for_3_ducks(self, red_ducks_total_price: str):
         total_price = self.chrome.find_element(*CartPageLoc.total_price_for_3_ducks).text
-        assert total_price == total_price, 'Price is not correct'
+        assert total_price == red_ducks_total_price
+        f'Error: Incorrect price!, expected - {red_ducks_total_price}, actual - {total_price}'
 
     def remove(self):
         remove = self.chrome.find_element(*CartPageLoc.remove)
         remove.click()
 
-    def verify_remove(self):
+    def verify_remove(self, text: str):
         veryfi_remove = self.chrome.find_element(*CartPageLoc.verify_remove).text
-        assert veryfi_remove == 'There are no items in your cart.'
+        assert veryfi_remove == text
+        f'Error: Incorrect text, expected - {text}, actual - {veryfi_remove}'

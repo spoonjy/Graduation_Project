@@ -38,9 +38,9 @@ def test_change_currency_and_country_verify_change(open_browser):
         lite_cart_page.save_button()
 
     with allure.step('Checking change currency'):
-        lite_cart_page.verify_currency()
+        lite_cart_page.verify_currency('EUR')
     with allure.step('Checking change country'):
-        lite_cart_page.verify_country()
+        lite_cart_page.verify_country('Poland')
 
 
 @allure.story('Log in, added ducks to cart and order ducks')
@@ -52,7 +52,7 @@ def test_added_ducks_to_cart_verify_added_and_price_order(open_browser):
         lite_cart_page.open()
 
     with allure.step('Log in'):
-        lite_cart_page.login()
+        lite_cart_page.login('Yar@gmail.com', 'admin')
     with allure.step('Changing currency'):
         lite_cart_page.change_currency()
     with allure.step('Changing country'):
@@ -97,13 +97,13 @@ def test_added_ducks_to_cart_verify_added_and_price_order(open_browser):
         cart_page.verify_purple_duck_item()
 
     with allure.step('Blue duck price checking'):
-        cart_page.verify_price_blue_duck()
+        cart_page.verify_price_blue_duck('14.52 €')
     with allure.step('Yellow duck price checking'):
-        cart_page.verify_price_yellow_duck()
+        cart_page.verify_price_yellow_duck('13.07 €')
     with allure.step('Purple duck price checking'):
-        cart_page.verify_price_purple_duck()
+        cart_page.verify_price_purple_duck('0.00 €')
     with allure.step('Total price checking'):
-        cart_page.verify_total_price()
+        cart_page.verify_total_price('27.59 €')
 
     with allure.step('Confirm order'):
         cart_page.order()
@@ -119,15 +119,15 @@ def test_login_and_edit_name_verify_edit(open_browser):
         lite_cart_page = LiteCartMainPage(browser, link)
         lite_cart_page.open()
     with allure.step('Log in'):
-        lite_cart_page.login()
+        lite_cart_page.login('Yar@gmail.com', 'admin')
 
     with allure.step('Opening edit page'):
         lite_cart_page.edit_account()
         edit_account_page = EditAccountPage(browser, url=browser.current_url)
     with allure.step('Editing firs name'):
-        edit_account_page.edit_first_name()
+        edit_account_page.edit_first_name('Ducks')
     with allure.step('Editing last name'):
-        edit_account_page.edit_last_name()
+        edit_account_page.edit_last_name('Forever')
     with allure.step('Click save'):
         edit_account_page.save()
 
@@ -154,7 +154,7 @@ def test_added_duck_to_cart_remove_verify_remove(open_browser):
         lite_cart_page.red_duck()
         red_duck_page = RedDuckPage(browser, url=browser.current_url)
     with allure.step('Changing quantity ducks'):
-        red_duck_page.quantity()
+        red_duck_page.quantity('3')
     with allure.step('Adding red duck to cart'):
         red_duck_page.add_to_cart()
 
@@ -162,11 +162,12 @@ def test_added_duck_to_cart_remove_verify_remove(open_browser):
         red_duck_page.go_cart()
         cart_page = CartPage(browser, url=browser.current_url)
     with allure.step('Quantity duck checking'):
-        cart_page.verify_red_ducks_quantity()
+        cart_page.verify_red_ducks_quantity('3')
+
     with allure.step('Total price checking'):
-        cart_page.verify_total_price_for_3_ducks()
+        cart_page.verify_total_price_for_3_ducks('43.56 €')
 
     with allure.step('Removing ducks from cart'):
         cart_page.remove()
     with allure.step('Checking empty cart'):
-        cart_page.verify_remove()
+        cart_page.verify_remove('There are no items in your cart.')

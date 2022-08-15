@@ -25,19 +25,23 @@ class LiteCartMainPage(BasePage):
         save_button = self.chrome.find_element(*MainPageLoc.save)
         save_button.click()
 
-    def verify_currency(self):
+    def verify_currency(self, currency: str):
         verify_currency = self.chrome.find_element(*MainPageLoc.verify_currency).text
-        assert verify_currency == 'EUR', 'Currency is not EUR'
+        assert verify_currency == currency
+        f'Error: Currency is not EUR!, expected - {currency}, actual - {verify_currency}'
 
-    def verify_country(self):
+    def verify_country(self, country: str):
         verify_county = self.chrome.find_element(*MainPageLoc.verify_country).text
-        assert verify_county == 'Poland', 'Country is not Poland'
+        assert verify_county == country
+        f'Error: Country is not Poland!, expected - {country}, actual - {verify_county}'
 
-    def login(self):
+    def login(self, mail, pas: str):
         email = self.chrome.find_element(*MainPageLoc.email_loc)
-        email.send_keys('Yar@gmail.com')
+        email.clear()
+        email.send_keys(mail)
         password = self.chrome.find_element(*MainPageLoc.pass_loc)
-        password.send_keys('admin')
+        password.clear()
+        password.send_keys(pas)
         login = self.chrome.find_element(*MainPageLoc.login_loc)
         login.click()
 

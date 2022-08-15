@@ -16,10 +16,10 @@ class RedDuckPage(BasePage):
         back_main_page = self.chrome.find_element(*MainPageLoc.back_main_page)
         back_main_page.click()
 
-    def quantity(self):
+    def quantity(self, red_quantity: str):
         quantity = self.chrome.find_element(*RedDuckLock.edit_quantity)
         quantity.clear()
-        quantity.send_keys('3')
+        quantity.send_keys(red_quantity)
 
     def go_cart(self):
         time.sleep(1)
