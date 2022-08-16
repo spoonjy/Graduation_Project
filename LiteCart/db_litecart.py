@@ -19,7 +19,7 @@ def verify_order_in_db():
         return False
 
 
-def verify_edit_first_name_in_db():
+def verify_edit_first_name_in_db(f_name: str):
     db_customers = mysql.connect(
         host="localhost",
         user="root",
@@ -34,13 +34,13 @@ def verify_edit_first_name_in_db():
     db_customers.close()
     for customers in first_name:
         first_name = customers
-        if first_name == 'Ducks':
+        if first_name == f_name:
             return True
         else:
             return False
 
 
-def verify_edit_last_name_in_db():
+def verify_edit_last_name_in_db(l_name: str):
     db_customers = mysql.connect(
         host="localhost",
         user="root",
@@ -55,7 +55,7 @@ def verify_edit_last_name_in_db():
     db_customers.close()
     for customers in last_name:
         last_name = customers
-        if last_name == 'Forever':
+        if last_name == l_name:
             return True
         else:
             return False

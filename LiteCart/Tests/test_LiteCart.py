@@ -132,9 +132,9 @@ def test_login_and_edit_name_verify_edit(open_browser):
         edit_account_page.save()
 
     with allure.step('Checking changes first name in db'):
-        verify_edit_first_name_in_db()
+        verify_edit_first_name_in_db('Ducks')
     with allure.step('Checking changes last name in db'):
-        verify_edit_last_name_in_db()
+        verify_edit_last_name_in_db('Forever')
 
 
 @allure.story('Checking removal of a duck from the cart after it has been added there')
