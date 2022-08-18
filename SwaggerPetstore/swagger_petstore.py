@@ -1,9 +1,9 @@
 import requests
 
 
-def post_add_new_pet():
-    new_pet_data = {"id": 3, "category": {"id": 3, "name": "Psyduck"},
-                    "name": "duck", "photoUrls": ["string"],
+def post_add_new_pet(id_pet: int, name_pet: str):
+    new_pet_data = {"id": id_pet, "category": {"id": 3, "name": "Psyduck"},
+                    "name": name_pet, "photoUrls": ["string"],
                     "tags": [{"id": 0, "name": "string"}],
                     "status": "available"}
 
@@ -12,39 +12,45 @@ def post_add_new_pet():
     f'Error! New pet doesnt add to store!, Actual status code {response.status_code} with error {response.json()}'
 
 
-def get_add_new_pet():
+def get_add_new_pet(id_pet: int, name_pet: str):
     response = requests.get(url='https://petstore.swagger.io/v2/pet/3').json()
     print(response)
-    if response['id'] == 3 and response['name'] == 'duck':
+    if response['id'] == id_pet and response['name'] == name_pet:
         return True
     else:
         return False
 
 
-def delete_new_pet():
-    response = requests.delete(url='https://petstore.swagger.io/v2/pet/3').json()
-    return response
+def delete_new_pet(id_pet: int):
+    response = requests.delete(url=f'https://petstore.swagger.io/v2/pet/{id_pet}')
+    assert response.status_code == 200
+    f"Error! The pet has not been removed."
+    f"Actual status code {response.status_code} with error {response.json()}"
 
 
-def verify_del_new_pet():
-    response = requests.get(url='https://petstore.swagger.io/v2/pet/3').json()
-    print(response)
-    if response['message'] == 'Pet not found':
+def verify_del_new_pet(id_pet: int):
+    response = requests.get(url=f'https://petstore.swagger.io/v2/pet/{id_pet}')
+    print(response.json())
+    assert response.status_code == 404, \
+        f"Error! Pet with id={id_pet} found!" \
+        f"Actual status code {response.status_code} with error {response.json()}"
+    if response.json()['message'] == 'Pet not found':
         return True
     else:
         return False
 
 
-def post_new_user():
+def post_new_user(id_user: int, name_user: str, f_name: str, l_name: str,
+                  email: str, password: str, phone: str):
     global new_user_data
     new_user_data = {
-        "id": 3,
-        "username": "Rick",
-        "firstName": "Yaroslav",
-        "lastName": "Lukashevich",
-        "email": "Yar@gmail.com",
-        "password": "123321",
-        "phone": "+375331234567",
+        "id": id_user,
+        "username": name_user,
+        "firstName": f_name,
+        "lastName": l_name,
+        "email": email,
+        "password": password,
+        "phone": phone,
         "userStatus": 3
     }
     response = requests.post(url='https://petstore.swagger.io/v2/user', json=new_user_data)
@@ -52,22 +58,25 @@ def post_new_user():
     f'Error! New user doesnt add to store!, Actual status code {response.status_code} with error {response.json()}'
 
 
-def get_user():
-    response = requests.get('https://petstore.swagger.io/v2/user/Rick').json()
-    assert new_user_data == response, 'User not found'
-    print(response)
+def get_user(name_user: str):
+    response = requests.get(f'https://petstore.swagger.io/v2/user/{name_user}')
+    assert response.status_code == 200, \
+        f"Error! User with username - {name_user} not found," \
+        f"Actual status code {response.status_code} with error {response.json()}"
+    print(response.json())
 
 
-def put_user():
+def put_user(id_user: int, name_user: str, f_name: str, l_name: str,
+             email: str, password: str, phone: str):
     global put_data
     put_data = {
-        "id": 3,
-        "username": "Ducker",
-        "firstName": "Yaroslav",
-        "lastName": "Lukashevich",
-        "email": "Yar@gmail.com",
-        "password": "123321",
-        "phone": "+375331234567",
+        "id": id_user,
+        "username": name_user,
+        "firstName": f_name,
+        "lastName": l_name,
+        "email": email,
+        "password": password,
+        "phone": phone,
         "userStatus": 3
     }
     response = requests.put(url='https://petstore.swagger.io/v2/user/Rick', json=put_data)
@@ -75,7 +84,9 @@ def put_user():
     f'Error! User not found!, Actual status code {response.status_code} with error {response.json()}'
 
 
-def verify_put_user():
-    response = requests.get(url='https://petstore.swagger.io/v2/user/Ducker').json()
-    assert put_data == response, 'User not found'
-    print(response)
+def verify_put_user(user_name: str):
+    response = requests.get(url=f'https://petstore.swagger.io/v2/user/{user_name}')
+    assert response.status_code == 200, \
+        f"Error! User with username - {user_name} not found," \
+        f"Actual status code {response.status_code} with error {response.json()}"
+    print(response.json())
