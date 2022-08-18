@@ -4,7 +4,7 @@ from .swagger_petstore import *
 
 class TestApiPetStore:
     @allure.story('Add new pet and delete from store')
-    def test_add__pet_and_delete_pet_from_store(self):
+    def test_add_pet_and_delete_pet_from_store(self):
         with allure.step('Adding new pet with id 3'):
             post_add_new_pet(3, 'duck')
         with allure.step('Checking if a pet has been added with id 3'):
